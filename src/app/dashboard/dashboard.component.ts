@@ -14,6 +14,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getHeroes();
+
+    // to test domino
+    const pathname = window.location.pathname;
+    console.log(pathname);
+    const lang = localStorage.getItem('_lang');
+    console.log(lang);
   }
 
   getHeroes(): void {

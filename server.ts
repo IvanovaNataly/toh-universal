@@ -4,6 +4,24 @@ import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
 
+// ssr DOM
+const domino = require('domino');
+const fs = require('fs');
+const path = require('path');
+import 'localstorage-polyfill';
+// index from browser build!
+const template = fs.readFileSync(path.join('dist/angular.io-example/browser', 'index.html')).toString();
+// for mock global window by domino
+const win = domino.createWindow(template);
+// mock
+global['window'] = win;
+// mock document
+global['document'] = win.document;
+// mock localStorage
+global["localStorage"] = localStorage;
+// mock navigator
+global['navigator'] = win.navigator;
+
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
